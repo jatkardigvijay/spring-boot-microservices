@@ -1,6 +1,8 @@
 package com.jbd.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -12,9 +14,11 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
+    @Size(min = 2, message = "Name must be at least 2 characters")
     private String name;
 
     @Column(name = "birth_date")
+    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
     public User() {}

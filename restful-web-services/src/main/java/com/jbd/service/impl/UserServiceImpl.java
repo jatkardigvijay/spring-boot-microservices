@@ -2,7 +2,6 @@ package com.jbd.service.impl;
 
 import com.jbd.dao.UserDao;
 import com.jbd.entity.User;
-import com.jbd.exception.UserNotFoundException;
 import com.jbd.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer id) {
         return userDao.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
     @Override
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         if (!userDao.existsById(id)) {
-            throw new UserNotFoundException("User not found with id: " + id);
+            throw new RuntimeException("User not found with id: " + id);
         }
         userDao.deleteById(id);
     }
